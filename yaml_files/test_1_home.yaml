@@ -1,0 +1,12 @@
+title: 获取csrf
+
+request:
+  method: get
+  url: http://47.107.116.139/phpwind/
+
+
+extract:
+
+
+validate:
+  
