@@ -57,7 +57,7 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
+
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -161,7 +161,4 @@ cython_debug/
 #.idea/
 
 # custom directory
-.idea/misc.xml
-.idea/workspace.xml
-.idea/vcs.xml
 .idea
