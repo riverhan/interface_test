@@ -31,10 +31,8 @@ class TestApi:
         def test_func(self):
             new_case_info = exchange.replace(case_info)
             result = Session().request(**new_case_info.request)
-            print(type(result))
-            if new_case_info.extract is not None:
-                for key_val, value in new_case_info.extract.items():
-                    exchange.extract(result, key_val, *value)
+            for key_val, value in new_case_info.extract.items():
+                exchange.extract(result, key_val, *value)
 
         return test_func
 

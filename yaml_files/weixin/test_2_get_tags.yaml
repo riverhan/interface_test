@@ -6,4 +6,4 @@ request:
     access_token: ${access_token}
 validate: null
 extract:
-  tags: [json, $.tags]
+  tags: [json, $.tags, 0]

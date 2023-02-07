@@ -18,17 +18,14 @@ from commons.templates import Template
 class Exchange(object):
     def __init__(self, path):
         self.files = YamlUtils(path)
-        self.resp = None
 
-    def extract(self, resp, key_value, attr, expr: str, index=0):
-        self.resp = copy.deepcopy(resp)
+    def extract(self, resp, key_value, attr, expr: str, index: int):
+        resp = copy.deepcopy(resp)
         try:
-            self.resp.json = resp.json()
+            resp.json = resp.json()
         except json.JSONDecodeError:
-            self.resp.json = {"msg": "is not json data"}
-
-        data = getattr(self.resp, attr)
-        print(self.resp.cookies)
+            resp.json = {"msg": "is not json data"}
+        data = getattr(resp, attr)
         match expr[0]:
             case '/':
                 res = None
@@ -67,4 +64,4 @@ if __name__ == '__main__':
 
     print(type(mock_resp.text))
     print(type(mock_resp.json()))
-    exchange = Exchange('../yaml_files/test_1_home.yaml')
+    exchange = Exchange('../yaml_files/weixin/test_1_home.yaml')
