@@ -6,33 +6,39 @@
 """
 from pathlib import Path
 
+
+from commons.exchange import Exchange
 from commons.models import CaseInfo
 from commons.yamlutils import YamlUtils
 from commons.session import Session
 
-_case_path = Path('../yaml_files')
+_case_path = Path(r'E:\PycharmProjects\interface_test\yaml_files\weixin')
+exchange = Exchange(r'E:\PycharmProjects\interface_test\extract.yaml')
 
 
 class TestApi:
     @classmethod
-    def find_yaml_case(cls, case_path: Path = _case_path):
-        yaml_path_list = case_path.glob("**/test_*.yaml")
+    def find_yaml_case(cls):
+        yaml_path_list = _case_path.glob("**/test_*.yaml")
         for yaml_path in sorted(yaml_path_list):
             yaml_data = YamlUtils(yaml_path)
             case_info = CaseInfo(**yaml_data)
             case_func = cls.new_case(case_info)
-            print(case_info)
-            print(yaml_path.name)
-            setattr(cls, f"{yaml_path.name}", case_func)
+            setattr(cls, f"{yaml_path.name.split('.')[0]}", case_func)
 
     @classmethod
     def new_case(cls, case_info):
         def test_func(self):
-            Session().request(**case_info.request)
+            new_case_info = exchange.replace(case_info)
+            result = Session().request(**new_case_info.request)
+            print(type(result))
+            if new_case_info.extract is not None:
+                for key_val, value in new_case_info.extract.items():
+                    exchange.extract(result, key_val, *value)
 
         return test_func
 
 
 # if __name__ == '__main__':
-#     TestApi().find_yaml_case()
+#     pytest.main(['-vs'])
 TestApi().find_yaml_case()

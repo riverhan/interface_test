@@ -31,7 +31,7 @@ class Session(requests.Session):
         response = super().send(request, **kwargs)  # 按原有的方式发送请求
         logger.info(f"接收响应      <<<<<< 状态码 = {response.status_code}")
         logger.debug(f"接收响应      <<<<<< 响应头 = {response.headers}")
-        logger.info(f"接收响应      <<<<<< 响应正文 = {response.content}")
+        logger.info(f"接收响应      <<<<<< 响应正文 = {response.content.decode('utf-8')}")
         return response
 
 
