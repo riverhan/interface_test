@@ -5,3 +5,8 @@
 # @Author : Riveryoyo
 # @Desc: 
 """
+import urllib
+
+
+def url_unquote(s: str) -> str:
+    return urllib.parse.unquote(s)

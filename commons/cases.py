@@ -12,8 +12,8 @@ from commons.models import CaseInfo
 from commons.yamlutils import YamlUtils
 from commons.session import Session
 
-_case_path = Path(r'E:\PycharmProjects\interface_test\yaml_files\weixin')
-exchange = Exchange(r'E:\PycharmProjects\interface_test\extract.yaml')
+_case_path = Path('./yaml_files/bbs')
+exchange = Exchange('extract.yaml')
 
 
 class TestApi:

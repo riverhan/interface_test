@@ -27,7 +27,7 @@ class YamlUtils(dict):
 
 
 if __name__ == '__main__':
-    files = YamlUtils('../yaml_files/weixin/test_1_home.yaml')
+    files = YamlUtils('../yaml_files/bbs/test_1_home.yaml')
     print(files)
     case_info = commons.models.CaseInfo(**files)
     print(case_info)

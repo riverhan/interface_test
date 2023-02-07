@@ -19,7 +19,7 @@ class Exchange(object):
     def __init__(self, path):
         self.files = YamlUtils(path)
 
-    def extract(self, resp, key_value, attr, expr: str, index: int):
+    def extract(self, resp, key_value, attr, expr: str, index=0):
         resp = copy.deepcopy(resp)
         try:
             resp.json = resp.json()
@@ -64,4 +64,4 @@ if __name__ == '__main__':
 
     print(type(mock_resp.text))
     print(type(mock_resp.json()))
-    exchange = Exchange('../yaml_files/weixin/test_1_home.yaml')
+    exchange = Exchange('../yaml_files/bbs/test_1_home.yaml')

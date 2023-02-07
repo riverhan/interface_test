@@ -6,7 +6,7 @@ request:
 
 
 extract:
-  token: [cookies, $.csrf_token, 0]
+  token: [cookies, $.csrf_token]
 
 validate:
   
