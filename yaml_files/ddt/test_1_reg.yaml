@@ -13,7 +13,7 @@ extract: # 提取
 
 validate:
   equals: # 断言相等
-    状态码等200:
+    断言状态码:
       - ${assert_code}      # 预期结果
       - ${code}  # 实际结果
 

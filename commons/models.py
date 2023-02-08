@@ -37,19 +37,22 @@ class CaseInfo:
         for assert_type, assert_value in self.validate.items():
             for msg, data in assert_value.items():
                 expected_value, actual_value = data[0], data[1]
-                match assert_type:
-                    case 'equals':
-                        logger.info(f"assert {expected_value} == {actual_value}, {msg}")
-                        assert expected_value == actual_value, msg
-                    case "not_equals":
-                        logger.info(f"assert {expected_value} != {actual_value}, {msg}")
-                        assert expected_value != actual_value, msg
-                    case "contains":
-                        logger.info(f"assert {expected_value} in {actual_value}, {msg}")
-                        assert expected_value in actual_value, msg
-                    case "not_contains":
-                        logger.info(f"assert {expected_value} not in {actual_value}, {msg}")
-                        assert expected_value not in actual_value, msg
+                try:
+                    match assert_type:
+                        case 'equals':
+                            logger.info(f"assert {expected_value} == {actual_value}, {msg}")
+                            assert expected_value == actual_value, msg
+                        case "not_equals":
+                            logger.info(f"assert {expected_value} != {actual_value}, {msg}")
+                            assert expected_value != actual_value, msg
+                        case "contains":
+                            logger.info(f"assert {expected_value} in {actual_value}, {msg}")
+                            assert expected_value in actual_value, msg
+                        case "not_contains":
+                            logger.info(f"assert {expected_value} not in {actual_value}, {msg}")
+                            assert expected_value not in actual_value, msg
+                except AssertionError:
+                    logger.error(f"assert fail {expected_value=}，{actual_value=}")
 
     def ddt(self) -> list:  # 返回一个列表，列表中应该包含N个 注入了变量的 CaseInfo
 

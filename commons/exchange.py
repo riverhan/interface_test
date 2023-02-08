@@ -42,6 +42,7 @@ class Exchange(object):
             value = res[index]
         else:
             value = 'not data'
+        logger.debug(f"{key_value} = {value}")
         self.files[key_value] = value
         self.files.save()
 
