@@ -7,6 +7,31 @@ request:
 
 extract:
   token: [cookies, $.csrf_token]
+  code: [status_code, (.*), 0]
+  body: [text, (.*), 0]
+
+parametrize: null
 
 validate:
-  
+  equals: # 断言相等
+   状态码等200:
+     - 200
+     - ${code}
+  not_equals: # 断言不相等
+    状态码不等于404:
+      - 404
+      - ${code}
+    状态码不等于403:
+      - 403
+      - ${code}
+    状态码不等于500:
+      - 500
+      - ${code}
+  contains: # 断言包含
+    包含了HTML:
+      - html
+      - ${body}
+  not_contains: # 断言不包含
+    不包含包beifan:
+      - beifan
+      - ${body}

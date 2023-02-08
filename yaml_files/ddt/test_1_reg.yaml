@@ -1,0 +1,28 @@
+title: 注册${title}
+
+request:
+  method: POST
+  url: https://api.tttt.one/rest-v2/login/sign_up
+  json:
+    email: ${email}
+    password: ${password}
+
+
+extract: # 提取
+  code: [ status_code, (.*), 0 ]
+
+validate:
+  equals: # 断言相等
+    状态码等200:
+      - ${assert_code}      # 预期结果
+      - ${code}  # 实际结果
+
+
+parametrize: # 数据驱动测试
+  - ["title", "email", "password", "assert_code"] #  变量名
+  - ["账号为空", "", "beifan123123", "422"] #  变量值
+  - ["密码为空", "beifan@qq.com", "", "422"] #  变量值
+  - ["账号密码都为空", "", "", "422"] #  变量值
+  - ["账号不是email", "beifan_qq.com", "", "422"] #  变量值
+  - ["账号重复", "beifan@qq.com", "beifan123123", "400"] #  变量值
+  - ["账号不重复", "beifan_${new_id()}@qq.com", "beifan123123", "200"] #  变量值

@@ -13,6 +13,9 @@ import jsonpath
 from commons.yamlutils import YamlUtils
 from commons.models import CaseInfo
 from commons.templates import Template
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Exchange(object):
@@ -33,8 +36,8 @@ class Exchange(object):
                 data = dict(data)
                 res = jsonpath.jsonpath(data, expr)
             case _:
+                data = str(data)
                 res = re.findall(expr, data)
-        print(f"{res=}")
         if res:
             value = res[index]
         else:

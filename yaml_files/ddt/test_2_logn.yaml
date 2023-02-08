@@ -1,0 +1,29 @@
+title: 登录${title}
+
+
+request:
+  method: POST
+  url: https://api.tttt.one/rest-v2/login/access_token
+  json:
+    email: ${email}
+    password: ${password}
+      
+
+extract:
+  code: [status_code, (.*), 0]
+  
+validate:
+  equals:
+    断言状态码:
+      - ${assert_code}
+      - ${code}
+        
+        
+parametrize:
+  - ["title", "email", "password", "assert_code"]
+  - ["账号为空", "", "beifan123123", "422"] #  变量值
+  - ["密码为空", "beifan@qq.com", "", "422"] #  变量值
+  - ["账号密码都为空", "", "", "422"] #  变量值
+  - ["账号错误", "beifan_qq.com", "", "422"] #  变量值
+  - ["密码不正确", "beifan@qq.com", "beifan@qq.com", "400"] #  变量值
+  - ["密码正确", "beifan@qq.com", "beifan123123", "200"] #  变量值

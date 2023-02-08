@@ -32,6 +32,20 @@ class Template(string.Template):
 
     call_pattern = re.compile(r"\${(?P<func_name>.*?)\((?P<func_args>.*?)\)}")
 
+    def __init__(self, template):
+        super().__init__(template)
+        self.hot_load()
+
+    def hot_load(self):
+        from commons import funcs
+        for func_name in dir(funcs):  # 遍历模块中的所有函数
+            if func_name.startswith("_"):
+                continue
+
+            func_code = getattr(funcs, func_name)  # 取到了函数对象
+            if callable(func_code):  # 如果是一个可以调用的函数
+                self.func_mapping[func_name] = func_code
+
     def render(self, mapping: dict) -> str:
         s = self.safe_substitute(mapping)  # 原有方法替换变量
         s = self.safe_substitute_funcs(s, mapping)  # 新方法替换函数结果
@@ -45,7 +59,6 @@ class Template(string.Template):
         :param mapping: 上下文，提供要使用的函数和变量
         :return: 替换后的结果
         """
-
         mapping = copy.deepcopy(mapping)
         mapping.update(self.func_mapping)  # 合并两个mapping
 
@@ -65,18 +78,3 @@ class Template(string.Template):
                 return str(func(*func_args_value))  # 否则用函数结果进行替换
 
         return self.call_pattern.sub(convert, template)
-
-
-def hot_load():
-    from commons import funcs
-
-    for func_name in dir(funcs):  # 遍历模块中的所有函数
-        if func_name.startswith("_"):
-            continue
-
-        func_code = getattr(funcs, func_name)  # 取到了函数对象
-        if callable(func_code):  # 如果是一个可以调用的函数
-            Template.func_mapping[func_name] = func_code  # 函数放到Template中
-
-
-hot_load()

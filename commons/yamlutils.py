@@ -5,8 +5,9 @@
 # @Author : Riveryoyo
 """
 import yaml
-
-import commons.models
+import logging
+from commons.models import CaseInfo
+logger = logging.getLogger(__name__)
 
 
 class YamlUtils(dict):
@@ -29,6 +30,6 @@ class YamlUtils(dict):
 if __name__ == '__main__':
     files = YamlUtils('../yaml_files/bbs/test_1_home.yaml')
     print(files)
-    case_info = commons.models.CaseInfo(**files)
+    case_info = CaseInfo(**files)
     print(case_info)
 

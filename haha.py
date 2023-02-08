@@ -5,8 +5,3 @@
 # @Author : Riveryoyo
 # @Desc: 
 """
-a = "adfadfadfadfasdfasdfadf"
-
-
-b = getattr(a, "lower")
-print(b)

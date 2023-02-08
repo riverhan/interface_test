@@ -1,12 +1,12 @@
-title: 登录
+title: 登录${title}
 request:
   method: post
   url: http://47.107.116.139/phpwind/index.php?m=u&c=login&a=dorun
   data:
     backurl: http://47.107.116.139/phpwind/
     csrf_token: ${token}
-    password: beifan
-    username: beifan
+    password: ${password}
+    username: ${username}
   headers:
     Accept: application/json, text/javascript, /; q=0.01
     X-Requested-With: XMLHttpRequest
@@ -18,3 +18,6 @@ validate:
    状态码等200:
      - 200
      - ${code}
+parametrize:
+  - ['title', 'username', 'password', 'code']
+  - ['登录', 'beifan','beifan','200']

@@ -9,7 +9,7 @@ import logging
 import requests
 from requests import Response, PreparedRequest
 
-logger = logging.getLogger('session')
+logger = logging.getLogger(__name__)
 
 
 class Session(requests.Session):

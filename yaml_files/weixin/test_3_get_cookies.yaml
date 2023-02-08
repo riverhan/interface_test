@@ -1,0 +1,18 @@
+title: 获取cookies
+
+request:
+  method: get
+  # url_unquote 是函数
+  # referer 是 变量
+  url: ${url_unquote(referer)} # 使用函数对变量进行二次处理
+extract:
+    username: [text, "U_NAME : '(.*)'", 0] # 从cookies使用jsonpath 提取第一个数据
+parameters: null
+validate:
+  equals: # 断言相等
+#   状态码等200:
+#     - 200
+#     - ${code}
+   beifan存在于数据库中:
+     - 0
+     - ${sql(select count(1) from report where author='${username}')}
