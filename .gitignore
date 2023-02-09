@@ -162,3 +162,5 @@ cython_debug/
 
 # custom directory
 .idea
+temp
+allure_report
