@@ -1,3 +1,5 @@
+feature: BBS接口
+story: BBS接口
 title: 获取cookies
 
 request:
@@ -7,7 +9,7 @@ request:
   url: ${url_unquote(referer)} # 使用函数对变量进行二次处理
 extract:
     username: [text, "U_NAME : '(.*)'", 0] # 从cookies使用jsonpath 提取第一个数据
-parameters: null
+parametrize: null
 validate:
   equals: # 断言相等
 #   状态码等200:

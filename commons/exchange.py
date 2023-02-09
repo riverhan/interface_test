@@ -9,6 +9,7 @@ import copy
 import json
 import re
 
+import allure
 import jsonpath
 from commons.yamlutils import YamlUtils
 from commons.models import CaseInfo
@@ -22,6 +23,7 @@ class Exchange(object):
     def __init__(self, path):
         self.files = YamlUtils(path)
 
+    @allure.step("提取变量")
     def extract(self, resp, key_value, attr, expr: str, index=0):
         resp = copy.deepcopy(resp)
         try:
@@ -46,6 +48,7 @@ class Exchange(object):
         self.files[key_value] = value
         self.files.save()
 
+    @allure.step('变量替换')
     def replace(self, case_info: CaseInfo):
         # 1. 将case_info 转成字符串
         case_info_str = case_info.to_yaml()

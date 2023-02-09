@@ -1,4 +1,8 @@
+feature: 微信相关
+story: 微信相关
 title: 获取微信标签接口
+
+
 request:
   method: get
   url: https://api.weixin.qq.com/cgi-bin/tags/get
@@ -6,4 +10,5 @@ request:
     access_token: ${access_token}
 validate: null
 extract: null
+parametrize: null
 #  tags: [json, $.tags, 0]

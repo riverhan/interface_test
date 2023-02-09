@@ -1,3 +1,5 @@
+feature: BBS接口
+story: BBS接口
 title: 登录${title}
 request:
   method: post

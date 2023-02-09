@@ -6,9 +6,10 @@
 """
 from urllib.parse import urljoin
 import logging
+
+import allure
 import requests
 from requests import Response, PreparedRequest
-
 logger = logging.getLogger(__name__)
 
 
@@ -17,6 +18,7 @@ class Session(requests.Session):
         super().__init__()
         self.base_url = base_url
 
+    @allure.step('发送请求')
     def request(self, method, url, *args, **kwargs):
         if not url.startswith("http"):  # 如果url不是以HTTP开头
             # 就自动添加baseurl
@@ -31,7 +33,7 @@ class Session(requests.Session):
         response = super().send(request, **kwargs)  # 按原有的方式发送请求
         logger.info(f"接收响应      <<<<<< 状态码 = {response.status_code}")
         logger.debug(f"接收响应      <<<<<< 响应头 = {response.headers}")
-        logger.info(f"接收响应      <<<<<< 响应正文 = {response.content.decode('utf-8')}")
+        logger.info(f"接收响应      <<<<<< 响应正文 = {response.content}")
         return response
 
 

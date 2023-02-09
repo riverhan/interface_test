@@ -5,6 +5,8 @@
 # @Author : Riveryoyo
 """
 from dataclasses import dataclass, asdict
+
+import allure
 import yaml
 from commons.templates import Template
 import logging
@@ -21,7 +23,10 @@ class CaseInfo:
     request: dict
     extract: dict
     validate: dict
-    parametrize: list
+    parametrize: list = ''
+    epic: str = '荔落蕊_项目'
+    feature: str = '荔落蕊_feature'
+    story: str = '荔落蕊_story'
 
     def to_yaml(self):
         yaml_str = yaml.dump(asdict(self), allow_unicode=True)
@@ -31,6 +36,7 @@ class CaseInfo:
     def from_yaml(cls, yaml_str):
         return cls(**yaml.safe_load(yaml_str))
 
+    @allure.step('断言')
     def assert_all(self):
         if not self.validate:
             return

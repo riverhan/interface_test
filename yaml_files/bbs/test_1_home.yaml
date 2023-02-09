@@ -1,3 +1,6 @@
+feature: BBS接口
+story: BBS接口
+
 title: 获取csrf
 
 request:
@@ -10,7 +13,7 @@ extract:
   code: [status_code, (.*), 0]
   body: [text, (.*), 0]
 
-parametrize: null
+
 
 validate:
   equals: # 断言相等
