@@ -1,0 +1,26 @@
+feature: 加密解密
+story: rsa
+title: rsa加密
+
+request:
+  method: POST
+  url: http://101.34.221.219:5000/rsalogin
+  data:
+    username: ${rsa_encode(admin)}
+    password: ${rsa_encode(123)}
+
+
+extract: # 提取
+  code: [status_code, (.*), 0]
+  message: [json, $.message , 0]
+  
+  
+validate:
+  equals: # 断言相等
+   状态码等200:
+     - 200
+     - ${code}
+  contains:
+   message包含成功:
+     - '成功'
+     - ${message}

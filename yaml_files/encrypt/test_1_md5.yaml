@@ -1,0 +1,31 @@
+feature: 加密解密
+story: md5
+title: md5加密
+
+request:
+  method: POST
+  url: http://101.34.221.219:5000/md5login
+  data:
+    username: ${md5(admin)}
+    password: ${md5(123)}
+    sign: ${sign(a,b,c,time,key)}
+
+
+extract: # 提取
+  code: [status_code, (.*), 0]
+  message: [json, $.message , 0]
+  
+  
+validate:
+  equals: # 断言相等
+   状态码等200:
+     - 200
+     - ${code}
+   内容长度等于10:
+     - 10
+     - ${beifan_len(message)}  # 计算得到的数字
+   
+  contains:
+   message包含成功:
+     - '成功'
+     - ${message}

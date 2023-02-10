@@ -65,7 +65,6 @@ class Template(string.Template):
         def convert(mo):
             func_name = mo.group("func_name")
             func_args = mo.group("func_args").split(",")
-
             func = mapping.get(func_name)  # 读取指定函数
             func_args_value = [mapping.get(arg, arg) for arg in func_args]
 

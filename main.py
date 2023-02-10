@@ -11,7 +11,7 @@ import pytest
 from commons.cases import TestApi
 
 if __name__ == '__main__':
-    case_path = Path('yaml_files')
+    case_path = Path('yaml_files/encrypt')
     TestApi.find_yaml_case(case_path)
     pytest.main(["-vs", __file__])
     os.system("allure generate temp -o allure_report --clean")

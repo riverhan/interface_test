@@ -3,4 +3,5 @@ pytest
 requests
 jsonpath
 pymysql
- allure-pytest
+allure-pytest
+rsa
