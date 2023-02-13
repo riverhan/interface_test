@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 class Exchange(object):
     def __init__(self, path):
         self.files = YamlUtils(path)
+        self.flag = ""
 
     @allure.step("提取变量")
     def extract(self, resp, key_value, attr, expr: str, index=0):
@@ -34,12 +35,16 @@ class Exchange(object):
         match expr[0]:
             case '/':
                 res = None
+                self.flag = "Xpath方法"
             case '$':
                 data = dict(data)
                 res = jsonpath.jsonpath(data, expr)
+                self.flag = "Json方法"
             case _:
                 data = str(data)
                 res = re.findall(expr, data)
+                self.flag = "正则方法"
+        logger.info(f"___通过{self.flag},提取到的值为：{res}")
         if res:
             value = res[index]
         else:
@@ -47,6 +52,7 @@ class Exchange(object):
         logger.debug(f"{key_value} = {value}")
         self.files[key_value] = value
         self.files.save()
+        logger.info(f"___完成  {key_value}:{value}  保存。。。")
 
     @allure.step('变量替换')
     def replace(self, case_info: CaseInfo):

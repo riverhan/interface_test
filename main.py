@@ -4,14 +4,18 @@
 # @Time : 2023/2/7 16:32
 # @Author : Riveryoyo
 """
+import datetime
 import os
-from pathlib import Path
-
+import shutil
 import pytest
 from commons.cases import TestApi
+from commons.read_ini import read_ini
 
 if __name__ == '__main__':
-    case_path = Path('yaml_files/encrypt')
-    TestApi.find_yaml_case(case_path)
-    pytest.main(["-vs", __file__])
+    # 刷新ini配置文件
+    read_ini()
+    # 初始化测试类
+    TestApi.find_yaml_case()
+    pytest.main([__file__])
+    shutil.move("logs/pytest.log", f"logs/{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log")
     os.system("allure generate temp -o allure_report --clean")

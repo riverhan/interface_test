@@ -6,12 +6,12 @@
 # @Desc: 
 """
 import pymysql as MySQLdb
-from commons.yamlutils import YamlUtils
+from commons import setting
 import logging
 
 
 logger = logging.getLogger(__name__)
-config_info = YamlUtils('./yaml_files/mysql_info.yaml')
+config_info = setting.db_info
 
 
 class DBServer(object):

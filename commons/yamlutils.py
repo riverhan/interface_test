@@ -24,7 +24,7 @@ class YamlUtils(dict):
 
     def save(self):
         with open(self._path, 'w', encoding='utf-8') as f:
-            yaml.dump(dict(self), f)
+            yaml.dump(dict(self), f, allow_unicode=True)
 
 
 if __name__ == '__main__':

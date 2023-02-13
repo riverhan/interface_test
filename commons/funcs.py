@@ -34,16 +34,14 @@ def sql(s: str) -> str:
 
 def new_id():
     # 自增，用不重复
-    id_file = YamlUtils('./yaml_files/id.yaml')
-    id_file["id"] += 110
-    id_file.save()
-    return id_file["id"]
+
+    return int(time.time())
 
 
-def last_id():
-    # 不自增，只会结果
-    id_file = YamlUtils('./yaml_files/id.yaml')
-    return id_file["id"]
+# def last_id():
+#     # 不自增，只会结果
+#     id_file = YamlUtils('./yaml_files/id.yaml')
+#     return id_file["id"]
 
 
 def md5(content):

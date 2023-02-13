@@ -5,7 +5,7 @@
 # @Author : Riveryoyo
 """
 from dataclasses import dataclass, asdict
-
+from commons import setting
 import allure
 import yaml
 from commons.templates import Template
@@ -24,9 +24,9 @@ class CaseInfo:
     extract: dict
     validate: dict
     parametrize: list = ''
-    epic: str = '荔落蕊_项目'
-    feature: str = '荔落蕊_feature'
-    story: str = '荔落蕊_story'
+    epic: str = setting.alluer_epic
+    feature: str = setting.alluer_feature
+    story: str = setting.alluer_story
 
     def to_yaml(self):
         yaml_str = yaml.dump(asdict(self), allow_unicode=True)
@@ -46,19 +46,19 @@ class CaseInfo:
                 try:
                     match assert_type:
                         case 'equals':
-                            logger.info(f"assert {expected_value} == {actual_value}, {msg}")
+                            logger.info(f"___assert:{msg},{expected_value} == {actual_value}")
                             assert expected_value == actual_value, msg
                         case "not_equals":
-                            logger.info(f"assert {expected_value} != {actual_value}, {msg}")
+                            logger.info(f"___assert:{msg},{expected_value} != {actual_value}")
                             assert expected_value != actual_value, msg
                         case "contains":
-                            logger.info(f"assert {expected_value} in {actual_value}, {msg}")
+                            logger.info(f"___assert:{msg},{expected_value} in {actual_value}")
                             assert expected_value in actual_value, msg
                         case "not_contains":
-                            logger.info(f"assert {expected_value} not in {actual_value}, {msg}")
+                            logger.info(f"___assert:{msg},{expected_value} not in {actual_value}")
                             assert expected_value not in actual_value, msg
                 except AssertionError:
-                    logger.error(f"assert fail {expected_value=}，{actual_value=}")
+                    logger.error(f"___assert fail {expected_value=}，{actual_value=}")
 
     def ddt(self) -> list:  # 返回一个列表，列表中应该包含N个 注入了变量的 CaseInfo
 
@@ -71,8 +71,7 @@ class CaseInfo:
             args_value_list = self.parametrize[1:]
             self.parametrize = []
             for args_value in args_value_list:
-                d = dict(zip(args_name, args_value))  # key+ n 个vlaue = n个字典
-                # d 就是数据驱动测试的变量，应输入到用例中
+                d = dict(zip(args_name, args_value))
                 case_info_str = self.to_yaml()  # 转字符串
                 case_info_str = Template(case_info_str).render(d)  # 输入变量
                 case_info = self.from_yaml(case_info_str)  # 转成类

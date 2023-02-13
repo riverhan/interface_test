@@ -1,0 +1,20 @@
+feature: 流程用例
+title: 登录
+
+request:
+  method: POST
+  url: /login/access_token
+  json:
+    email: bf@qq.com
+    password: bf123456
+
+
+extract:
+  code: [ status_code, (.*), 0 ]
+  access_token: [json, $.access_token, 0]
+
+validate:
+  equals:
+    状态码断言:
+      - 200
+      - ${code}

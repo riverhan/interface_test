@@ -242,4 +242,4 @@ cython_debug/
 temp
 allure_report
 .idea
-extract.yaml
+logs
