@@ -1,16 +1,16 @@
 feature: 流程用例
-title: 注册
+title: 登录
 
 request:
   method: POST
-  url: /login/sign_up
+  url: /login/access_token
   json:
-    email: 25012528_${new_id()}@qq.com
+    email: 25012528@qq.com
     password: bf123456
 
 
 extract:
-  id: [ json, $.id, 0 ]
+  access_token: [json, $.access_token]
 
 validate:
   equals:

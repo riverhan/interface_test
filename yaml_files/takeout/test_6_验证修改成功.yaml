@@ -1,0 +1,20 @@
+feature: 流程用例
+title: 验证修改成功任务
+
+request:
+  method: GET
+  url: /todo/${new_id}
+  headers:
+    Authorization: Bearer ${access_token}
+
+
+extract:
+  code: [ status_code, (.*), 0 ]
+  is_done: [ json, $.is_done, 0 ]
+
+validate:
+  equals:
+    状态码断言:
+      - True
+      - ${is_done}
+

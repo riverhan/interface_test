@@ -1,0 +1,19 @@
+feature: 流程用例
+title: 验证删除成功
+
+request:
+  method: GET
+  url: /todo/${new_id}
+  headers:
+    Authorization: Bearer ${access_token}
+
+
+extract:
+  code: [ status_code, (.*), 0 ]
+
+validate:
+  equals:
+    状态码断言:
+      - 404
+      - ${code}
+

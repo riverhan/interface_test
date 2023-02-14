@@ -1,0 +1,20 @@
+feature: 流程用例
+title: 查询任务列表
+
+request:
+  method: GET
+  url: /todo
+  headers:
+      Authorization: Bearer ${access_token}
+
+extract:
+  code: [ status_code, (.*), 0 ]
+  total: [json, $.total, 0]
+
+validate:
+  equals:
+    状态码断言:
+      - 200
+      - ${code}
+
+  

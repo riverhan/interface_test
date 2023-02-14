@@ -1,0 +1,19 @@
+feature: 流程用例
+title: 验证新增成功
+
+request:
+  method: GET
+  url: /todo
+  headers:
+      Authorization: Bearer ${access_token}
+
+extract:
+  code: [ status_code, (.*), 0 ]
+  new_total: [json, $.total, 0]
+
+validate:
+  equals: 
+    状态码断言:
+      - ${add(total,1)}       
+      - ${new_total}
+

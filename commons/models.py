@@ -24,9 +24,9 @@ class CaseInfo:
     extract: dict
     validate: dict
     parametrize: list = ''
-    epic: str = setting.alluer_epic
-    feature: str = setting.alluer_feature
-    story: str = setting.alluer_story
+    epic: str = setting.allure_epic
+    feature: str = setting.allure_feature
+    story: str = setting.allure_story
 
     def to_yaml(self):
         yaml_str = yaml.dump(asdict(self), allow_unicode=True)

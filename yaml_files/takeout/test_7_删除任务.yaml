@@ -1,0 +1,19 @@
+feature: 流程用例
+title: 删除任务
+
+request:
+  method: DELETE
+  url: /todo/${new_id}
+  headers:
+    Authorization: Bearer ${access_token}
+
+
+extract:
+  code: [ status_code, (.*), 0 ]
+
+validate:
+  equals:
+    状态码断言:
+      - 204
+      - ${code}
+

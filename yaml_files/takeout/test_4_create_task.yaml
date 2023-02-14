@@ -1,0 +1,21 @@
+feature: 流程用例
+title: 创建新任务
+
+request:
+  method: POST
+  url: /todo
+  headers:
+      Authorization: Bearer ${access_token}
+  json:
+    title: 新的任务_${time()}
+    is_done: False
+
+extract:
+  code: [ status_code, (.*), 0 ]
+  new_id: [json, $.id, 0]
+
+validate:
+  equals:
+    状态码断言:
+      - 200
+      - ${code}
